@@ -1,0 +1,14 @@
+{
+    "name": "wearebase/images",
+    "description": "Front End Utilities for Lazy Images and Polyfills",
+    "type": "craft-plugin",
+    "require": {
+        "composer/installers": "^1.0"
+    },
+    "authors": [
+        {
+            "name": "Jonathan Ginn",
+            "email": "jon@wearebase.com"
+        }
+    ]
+}
