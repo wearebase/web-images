@@ -1,5 +1,5 @@
 {
-    "name": "wearebase/images",
+    "name": "wearebase/front-end-images",
     "description": "Front End Utilities for Lazy Images and Polyfills",
     "type": "craft-plugin",
     "require": {

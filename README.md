@@ -13,7 +13,7 @@ Then include it in your composer:
 
 ```
 "require": {
-    "wearebase/fe-images" : "*"
+    "wearebase/web-front-end-images" : "*"
 },
 ```
 
