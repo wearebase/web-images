@@ -1,0 +1,73 @@
+{% macro img(url, url2x, alt, classes, width, height) %}
+  {% spaceless %}
+    <img
+      src="{{url}}"
+      {% if width %}
+        width="{{width}}"
+      {% endif %}
+      {% if height %}
+        height="{{height}}"
+      {% endif %}
+      class="{{classes|default('')}}"
+      alt="{{ alt }}" />
+  {% endspaceless %}
+{% endmacro %}
+
+/**
+ * Lazy Load Image
+ *
+ * Provides a simple function to lazyload an image, with optional retina (2x) size.
+ * If you know or want to set the width/height, provide it.
+ *
+ * Setting width/height will aid empty image visuals when loading -
+ * and helps constrain a 2x image to the correct size.
+ *
+ * @param string url      URL string of img to lazyload [REQUIRED]
+ * @param string url2x    URL 2x string of img to lazyload [OPTIONAL]
+ * @param string alt      Alt string of img [RECOMMENDED]
+ * @param string classes  String of classes to add to the img [RECOMMENDED]
+ * @param int width       Int of image 1x width [OPTIONAL]
+ * @param int height      Int of image 1x height [OPTIONAL]
+ * @return string         returns lazyloaded image and noscript fallback
+ */
+{% macro lazy(url, url2x, alt, classes, width, height) %}
+  {% spaceless %}
+  <img
+    src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+    {% if url2x|length > 2 %}
+      data-src="{{url}}|{{url2x}}"
+    {% else %}
+      data-src="{{url}}"
+    {% endif %}
+    {% if width %}
+      width="{{width}}"
+    {% endif %}
+    {% if height %}
+      height="{{height}}"
+    {% endif %}
+    class="b-lazy {{classes|default('')}}"
+    alt="{{ alt }}" />
+  <noscript>
+    <img
+      src="{{url}}"
+      alt="{{alt}}"
+      {% if width %}
+        width="{{width}}"
+      {% endif %}
+      class="{{classes|default('')}}" />
+  </noscript>
+  {% endspaceless %}
+{% endmacro %}
+
+{% macro lazyTimberImage(timberImage, timberImage2x, alt, classes, size) %}
+  {% import _self as image %}
+  {% set altText = alt ? alt : timberImage.caption %}
+  {{ image.lazy(timberImage.src(size|default('full')), timberImage2x.src(size|default('full')), altText, classes, timberImage.width, timberImage.height) }}
+{% endmacro %}
+
+{% macro background(img, classes) %}
+  <div class="bg-full b-lazy b-fade-in {{classes|default('')}}" data-src="{{ img }}"></div>
+  <noscript>
+    <div class="bg-full {{classes|default('')}}" style="background-image:url('{{ img }}');"></div>
+  </noscript>
+{% endmacro %}

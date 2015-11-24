@@ -1,0 +1,25 @@
+$base-lazy-transition-speed: 500ms !default;
+
+.no-js .b-lazy {
+  display: none;
+}
+
+.b-lazy.b-fade-in {
+  -webkit-transition: opacity $base-lazy-transition-speed ease-in-out;
+  -moz-transition: opacity $base-lazy-transition-speed ease-in-out;
+  -o-transition: opacity $base-lazy-transition-speed ease-in-out;
+  transition: opacity $base-lazy-transition-speed ease-in-out;
+  max-width: 100%;
+  opacity: 0;
+  
+  &.b-loaded {
+    opacity: 1;
+  }
+}
+
+.b-lazy.b-no-fade {
+  -webkit-transition: none !important;
+  -moz-transition: none !important;
+  -o-transition: none !important;
+  transition: none !important;
+}
