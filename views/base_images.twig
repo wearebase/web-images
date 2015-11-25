@@ -22,52 +22,69 @@
  * Setting width/height will aid empty image visuals when loading -
  * and helps constrain a 2x image to the correct size.
  *
- * @param string url      URL string of img to lazyload [REQUIRED]
- * @param string url2x    URL 2x string of img to lazyload [OPTIONAL]
- * @param string alt      Alt string of img [RECOMMENDED]
- * @param string classes  String of classes to add to the img [RECOMMENDED]
- * @param int width       Int of image 1x width [OPTIONAL]
- * @param int height      Int of image 1x height [OPTIONAL]
- * @return string         returns lazyloaded image and noscript fallback
+ * @param string/array  images    URL string of img to lazyload OR array of URL strings (1x, 2x) [REQUIRED]
+ * @param string        alt       Alt string of img [RECOMMENDED]
+ * @param string        classes   String of classes to add to the img [RECOMMENDED]
+ * @param int           width     Int of image 1x width [OPTIONAL]
+ * @param int           height    Int of image 1x height [OPTIONAL]
+ * @return              string    returns lazyloaded image and noscript fallback
  */
-{% macro lazy(url, url2x, alt, classes, width, height) %}
+{% macro lazy(images, alt, classes, width, height) %}
   {% spaceless %}
-  <img
-    src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-    {% if url2x|length > 2 %}
-      data-src="{{url}}|{{url2x}}"
+    {% if images is iterable %}
+      {# Images is an array #}
+      {% set url1x = images[0] %}
+      {% set url2x = images[1] %}
     {% else %}
-      data-src="{{url}}"
+      {# Images is a string #}
+      {% set url1x = images %}
+      {% set url2x = false %}
     {% endif %}
-    {% if width %}
-      width="{{width}}"
-    {% endif %}
-    {% if height %}
-      height="{{height}}"
-    {% endif %}
-    class="b-lazy {{classes|default('')}}"
-    alt="{{ alt }}" />
-  <noscript>
+
     <img
-      src="{{url}}"
-      alt="{{alt}}"
+      src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+      data-src="{{ url2x ? (url1x ~ '|' ~ url2x) : url1x }}"
       {% if width %}
         width="{{width}}"
       {% endif %}
-      class="{{classes|default('')}}" />
-  </noscript>
+      {% if height %}
+        height="{{height}}"
+      {% endif %}
+      class="b-lazy {{classes|default('')}}"
+      alt="{{ alt }}" />
+    <noscript>
+      <img
+        src="{{url1x}}"
+        alt="{{alt}}"
+        {% if width %}
+          width="{{width}}"
+        {% endif %}
+        class="{{classes|default('')}}" />
+    </noscript>
   {% endspaceless %}
 {% endmacro %}
 
 {% macro lazyTimberImage(timberImage, timberImage2x, alt, classes, size) %}
   {% import _self as base_image %}
   {% set altText = alt ? alt : timberImage.caption %}
-  {{ base_image.lazy(timberImage.src(size|default('full')), timberImage2x.src(size|default('full')), altText, classes, timberImage.width, timberImage.height) }}
+  {{ base_image.lazy([timberImage.src(size|default('full')), timberImage2x.src(size|default('full'))], altText, classes, timberImage.width, timberImage.height) }}
 {% endmacro %}
 
-{% macro background(img, classes) %}
-  <div class="bg-full b-lazy b-fade-in {{classes|default('')}}" data-src="{{ img }}"></div>
-  <noscript>
-    <div class="bg-full {{classes|default('')}}" style="background-image:url('{{ img }}');"></div>
-  </noscript>
+{% macro background(images, classes) %}
+  {% spaceless %}
+    {% if images is iterable %}
+      {# Images is an array #}
+      {% set url1x = images[0] %}
+      {% set url2x = images[1] %}
+    {% else %}
+      {# Images is a string #}
+      {% set url1x = images %}
+      {% set url2x = false %}
+    {% endif %}
+
+    <div data-src="{{ url2x ? (url1x ~ '|' ~ url2x) : url1x }}" class="bg-full b-lazy b-fade-in {{classes|default('')}}"></div>
+    <noscript>
+      <div style="background-image:url('{{ url1x }}');" class="bg-full {{classes|default('')}}" ></div>
+    </noscript>
+  {% endspaceless %}
 {% endmacro %}
