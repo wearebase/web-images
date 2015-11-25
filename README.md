@@ -4,7 +4,7 @@ In your `composer.json`, add a new section for repositories:
 ```
 "repositories": [
   { "type": "vcs", "url": "GIT-URL" }
-],
+]
 ```
 
 And add the url of this repository.
@@ -13,8 +13,8 @@ Then include it in your composer:
 
 ```
 "require": {
-    "wearebase/web-front-end-images" : "*"
-},
+  "wearebase/web-front-end-images" : "*"
+}
 ```
 
 And specify a version or minimum version.
