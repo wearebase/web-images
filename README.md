@@ -90,10 +90,11 @@ With the path to the file and the variable you'd like to access it on.
 * All of the included functions include a `<noscript>` version for non-JS users.
 
 ### lazy
-Bog standard lazy img. Pass it 1x (and 2x optional), plus alt, classes, and the rest and it'll handle everything for you. There is also a standard 'img' macro if you need to use that instead of Lazy, which uses the same arguments as Lazy.
+Bog standard lazy img. Pass it 1x (and 2x optional, or false), plus alt, classes, and the rest and it'll handle everything for you. There is also a standard 'img' macro if you need to use that instead of Lazy, which uses the same arguments as Lazy.
 
 ### lazyTimberImage
-Because TimberImage pulls in the width and height of the image, it can be used effectively to set the dimensions of an `<img>` before replacing the img with a 2x TimberImage version.
+* Because TimberImage pulls in the width and height of the image, it can be used effectively to set the dimensions of an `<img>` before replacing the img with a 2x TimberImage version.
 
 ### background
-Use the included background macro to easily create a full size lazyloaded background. By default these will fade in, but you can disable that by adding `b-no-fade` class to backgrounds when triggering the macro.
+* Use the included background macro to easily create a full size lazyloaded background. By default these will fade in, but you can disable that by adding `b-no-fade` class to backgrounds when triggering the macro.
+* A parent of a full size background must be relative, or use the `bg-parent` class.
