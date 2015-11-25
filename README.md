@@ -54,7 +54,7 @@ Timber::$locations = array(
 
 ## Enabling Sass
 * Add the Sass to your build path
-* @import `_autoload.scss`. to get everything you need.
+* `@import _autoload.scss`. to get everything you need.
 * In your project variables, you can optionally add the following to override default values:
     * `$base-lazy-transition-speed` (500ms)
 
