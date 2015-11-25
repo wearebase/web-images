@@ -60,9 +60,9 @@
 {% endmacro %}
 
 {% macro lazyTimberImage(timberImage, timberImage2x, alt, classes, size) %}
-  {% import _self as image %}
+  {% import _self as base_image %}
   {% set altText = alt ? alt : timberImage.caption %}
-  {{ image.lazy(timberImage.src(size|default('full')), timberImage2x.src(size|default('full')), altText, classes, timberImage.width, timberImage.height) }}
+  {{ base_image.lazy(timberImage.src(size|default('full')), timberImage2x.src(size|default('full')), altText, classes, timberImage.width, timberImage.height) }}
 {% endmacro %}
 
 {% macro background(img, classes) %}
