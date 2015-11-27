@@ -45,7 +45,6 @@ First of all, you must add the views folder to your Twig template load path. You
 [Add the loadpath to your `functions.php`](https://github.com/jarednova/timber/wiki/Configure-template-locations). You must re-add the default Theme view folder in here too as it may override the Timber view folder.
 
 ```
-/* functions.php */
 Timber::$dirname = array(
   'views',
   'packages/web-front-end-images/views'
