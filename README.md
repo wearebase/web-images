@@ -1,21 +1,21 @@
 # Install
 In your `composer.json`, add a new section for repositories:
 
-`
+```
 "repositories": [
   { "type": "vcs", "url": "GIT-URL" }
 ]
-`
+```
 
 And add the url of this repository.
 
 Then include it in your composer:
 
-`
+```
 "require": {
   "wearebase/web-front-end-images" : "*"
 }
-`
+```
 
 And specify a version or minimum version.
 
@@ -24,13 +24,13 @@ As this repo is private on BitBucket, your development machine *and* your server
 # Configure where you want the package to go
 In your `composer.json`, add the following:
 
-`
+```
 "extra": {
   "installer-paths": {
-    "src/components/{$name}": ["type:craft-plugin"]
+    "wp-content/themes/timber/packages/{$name}": ["type:craft-plugin"]
   }
 }
-`
+```
 
 This plugin identifies itself as a `craft-plugin`. The addition above will send all `craft-plugin` to a directory you specify. I recommend to send it to your src directory in a third-party folder you can easily access with Sass, Twig, etc. If using Wordpress, send it to a theme/third-party directory and gitignore that folder.
 
@@ -42,15 +42,14 @@ If you do not specify this item in `composer.json` this utility will install to 
 First of all, you must add the views folder to your Twig template load path. You can either specify the views folder within this package or specify your whole third-party directory, which will affect the way you access your views. If you're using multiple Base packages, then the latter may be preferable.
 
 ### Timber
-[Add the loadpath to your `functions.php`](https://github.com/jarednova/timber/wiki/Configure-template-locations). You may need to re-add the default Theme view folder in here too as it may override the Timber view folder.
+[Add the loadpath to your `functions.php`](https://github.com/jarednova/timber/wiki/Configure-template-locations#changing-the-default-folder-for-twig-files). You must re-add the default Theme view folder in here too as it may override the Timber view folder.
 
-`
-/* functions.php */
-Timber::$locations = array(
-  '/package-install-dir',
-  ABSPATH.'/wp-content/themes/timber/views'
+```
+Timber::$dirname = array(
+  'views',
+  'packages/web-front-end-images/views'
 );
-`
+```
 
 ### Enabling Macros
 In your layout file, or in individual macros or components:
