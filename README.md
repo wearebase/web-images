@@ -42,7 +42,7 @@ If you do not specify this item in `composer.json` this utility will install to 
 First of all, you must add the views folder to your Twig template load path. You can either specify the views folder within this package or specify your whole third-party directory, which will affect the way you access your views. If you're using multiple Base packages, then the latter may be preferable.
 
 ### Timber
-[Add the loadpath to your `functions.php`](https://github.com/jarednova/timber/wiki/Configure-template-locations). You must re-add the default Theme view folder in here too as it may override the Timber view folder.
+[Add the loadpath to your `functions.php`](https://github.com/jarednova/timber/wiki/Configure-template-locations#changing-the-default-folder-for-twig-files). You must re-add the default Theme view folder in here too as it may override the Timber view folder.
 
 ```
 Timber::$dirname = array(
