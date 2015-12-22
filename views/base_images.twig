@@ -97,9 +97,10 @@
     {% set timberImage2x = false %}
   {% endif %}
 
+  {% set size = size|default('full') %}
   {% set altText = alt ? alt : timberImage1x.caption %}
 
-  {{ base_image.lazy([timberImage1x.src(size|default('full')), timberImage2x.src(size|default('full'))], altText, classes, timberImage1x.width, timberImage1x.height) }}
+  {{ base_image.lazy([timberImage1x.src(size), timberImage2x.src(size)], altText, classes, timberImage1x.sizes[size].width, timberImage1x.sizes[size].height) }}
 {% endmacro %}
 
 /**
