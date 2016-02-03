@@ -85,7 +85,7 @@
  * @param int           size      Size of image, defaults to 'full' [OPTIONAL]
  * @return              string    returns lazyloaded image and noscript fallback
  */
-{% macro TimberImages(ids, alt, classes, size) %}
+{% macro TimberImages(ids, alt, classes, sizes) %}
   {% import _self as base_image %}
   {% if ids is iterable %}
     {# ids is an array #}
@@ -97,10 +97,17 @@
     {% set timberImage2x = false %}
   {% endif %}
 
-  {% set size = size|default('full') %}
+  {% if sizes is iterable %}
+    {% set size1x = sizes[0] %}
+    {% set size2x = sizes[1] %}
+  {% else %}
+    {% set size1x = sizes|default('full') %}
+    {% set size2x = size1x %}
+  {% endif %}
+
   {% set altText = alt ? alt : timberImage1x.caption %}
 
-  {{ base_image.lazy([timberImage1x.src(size), timberImage2x.src(size)], altText, classes, timberImage1x.sizes[size].width, timberImage1x.sizes[size].height) }}
+  {{ base_image.lazy([timberImage1x.src(size1x), timberImage2x.src(size2x)], altText, classes, timberImage1x.sizes[size1x].width, timberImage1x.sizes[size1x].height) }}
 {% endmacro %}
 
 /**
