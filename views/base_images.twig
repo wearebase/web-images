@@ -105,9 +105,15 @@
     {% set size2x = size1x %}
   {% endif %}
 
+  {% if timberImage2x %}
+    {% set request = [timberImage1x.src(size1x), timberImage2x.src(size2x)] %}
+  {% else %}
+    {% set request = timberImage1x.src(size1x) %}
+  {% endif %}
+
   {% set altText = alt ? alt : timberImage1x.caption %}
 
-  {{ base_image.lazy([timberImage1x.src(size1x), timberImage2x.src(size2x)], altText, classes, timberImage1x.sizes[size1x].width, timberImage1x.sizes[size1x].height) }}
+  {{ base_image.lazy(request, altText, classes, timberImage1x.sizes[size1x].width, timberImage1x.sizes[size1x].height) }}
 {% endmacro %}
 
 /**
