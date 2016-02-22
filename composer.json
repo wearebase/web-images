@@ -1,6 +1,6 @@
 {
-    "name": "wearebase/web-front-end-images",
-    "description": "Front End Utilities for Lazy Images and Polyfills",
+    "name": "wearebase/web-images",
+    "description": "Front End Utilities for Lazy Images and Retina",
     "type": "craft-plugin",
     "require": {
         "composer/installers": "^1.0"
