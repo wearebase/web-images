@@ -7,15 +7,7 @@ Because Composer doesn't let you install to a folder of your choice, at the curr
 
 
 # Install
-Include this in your `composer.json`:
-
-```
-"require": {
-  "wearebase/web-images" : "*"
-}
-```
-
-And specify a version or minimum version.
+`composer require wearebase/web-images`
 
 # Configure where you want the package to go
 In your `composer.json`, add the following:
