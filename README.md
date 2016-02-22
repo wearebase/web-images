@@ -3,7 +3,7 @@ Because Composer doesn't let you install to a folder of your choice, at the curr
 
 # Requirements
 * [Timber for Wordpress](https://github.com/jarednova/timber) or other Twig project
-* SCSS
+* Sass (SCSS)
 
 
 # Install
