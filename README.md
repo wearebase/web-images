@@ -5,6 +5,7 @@ Because Composer doesn't let you install to a folder of your choice, at the curr
 * [Timber for Wordpress](https://github.com/jarednova/timber) or other Twig project
 * SCSS
 
+
 # Install
 In your `composer.json`, add a new section for repositories:
 
@@ -26,8 +27,6 @@ Then include it in your composer:
 
 And specify a version or minimum version.
 
-As this repo is private on BitBucket, your development machine *and* your servers will need authorised keys on bitbucket to pull this repo.
-
 # Configure where you want the package to go
 In your `composer.json`, add the following:
 
@@ -39,7 +38,7 @@ In your `composer.json`, add the following:
 }
 ```
 
-This plugin identifies itself as a `craft-plugin`. The addition above will send all `craft-plugin` to a directory you specify. I recommend to send it to your src directory in a third-party folder you can easily access with Sass, Twig, etc. If using Wordpress, send it to a theme/third-party directory and gitignore that folder.
+This plugin identifies itself as a `craft-plugin`. The addition above will send all `craft-plugin` to a directory you specify. I recommend to send it to your Timber theme inside of wp-content, so you can easily access files with Sass, Twig, etc. Then .gitignore that packages folder.
 
 If you do not specify this item in `composer.json` this utility will install to `craft/plugins/{$name}` as that is the default from `composer/installer` package.
 
@@ -52,7 +51,7 @@ If you do not specify this item in `composer.json` this utility will install to 
 * lazyLoad markup and scss to allow for full size backgrounds, images, and TimberImages
 * background-size.min.htc to allow for backwards compatibility of `background-size: cover;`
 
-# Enabling
+# Usage
 
 ## Enabling Views
 First of all, you must add the views folder to your Twig template load path. You can either specify the views folder within this package or specify your whole third-party directory, which will affect the way you access your views. If you're using multiple Base packages, then the latter may be preferable.
