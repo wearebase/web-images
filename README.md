@@ -1,3 +1,10 @@
+# Important note
+Because Composer doesn't let you install to a folder of your choice, at the current time we are hijacking the [composer/installers](https://github.com/composer/installers) package for 'Craft Plugins'. This means you must add an item to your composer.json to place it in a folder of your choice. This will only affect users who use Craft CMS. And as this is a package designed for a Twig project or [Timber for Wordpress](https://github.com/jarednova/timber), that shouldn't be a problem... right?
+
+# Requirements
+* [Timber for Wordpress](https://github.com/jarednova/timber) or other Twig project
+* SCSS
+
 # Install
 In your `composer.json`, add a new section for repositories:
 
@@ -68,7 +75,12 @@ In your layout file, or in individual macros or components:
 With the path to the file and the variable you'd like to access it on.
 
 ## Enabling Sass
-* Add the Sass to your build path
+* Add the Sass to your build path. If you're using Compass, add this to your config.rb:
+
+```
+ add_import_path "wp-content/themes/timber/packages"
+```
+
 * `@import "autoload"`. to get everything you need.
 * In your project variables, you can optionally add the following to override default values:
     * `$base-lazy-transition-speed` (500ms)
