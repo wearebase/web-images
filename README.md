@@ -7,21 +7,11 @@ Because Composer doesn't let you install to a folder of your choice, at the curr
 
 
 # Install
-In your `composer.json`, add a new section for repositories:
-
-```
-"repositories": [
-  { "type": "vcs", "url": "GIT-URL" }
-]
-```
-
-And add the url of this repository.
-
-Then include it in your composer:
+Include this in your `composer.json`:
 
 ```
 "require": {
-  "wearebase/web-front-end-images" : "*"
+  "wearebase/web-images" : "*"
 }
 ```
 
