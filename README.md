@@ -24,7 +24,17 @@ In your `composer.json`, add the following:
 
 This plugin identifies itself as a `craft-plugin`. The addition above will send all `craft-plugin` to a directory you specify. I recommend to send it to your Timber theme inside of wp-content, so you can easily access files with Sass, Twig, etc. Then .gitignore that packages folder.
 
-If you do not specify this item in `composer.json` this utility will install to `craft/plugins/{$name}` as that is the default from `composer/installer` package.
+If you want to move *just* this package to a folder of your choice, use this:
+
+```
+"extra": {
+  "installer-paths": {
+    "wp-content/themes/timber/packages/{$name}": ["wearebase/web-images"]
+  }
+}
+```
+
+If you do not specify an installer-path in `composer.json` this utility will install to `craft/plugins/{$name}` as that is the default from `composer/installer` package.
 
 # What's included
 
