@@ -105,7 +105,7 @@ Pass this the following vars:
 * Classes: Any additional classes to add to the image as a string. Optional
 * Sizes: string or array of string sizes. If empty, uses 'full'. Optional
 
-### {{ base_image.background(images, classes) }}
+#### {{ base_image.background(images, classes) }}
 * Use the included background macro to easily create a full size lazyloaded background. By default these will fade in, but you can disable that by adding `b-no-fade` class to backgrounds when triggering the macro.
 * A parent of a full size background **must be position:relative**, or use the `bg-parent` class.
 
