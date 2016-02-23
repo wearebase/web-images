@@ -1,5 +1,7 @@
-# Important note for Craft CMS users
-Because Composer doesn't let you install to a folder of your choice, at the current time we are hijacking the [composer/installers](https://github.com/composer/installers) package for 'Craft Plugins'. This means you must add an item to your composer.json to place it in a folder of your choice. This will only affect users who use Craft CMS. And as this is a package designed for a Twig project or [Timber for Wordpress](https://github.com/jarednova/timber), that shouldn't be a problem... right?
+# Caveat: This is not a Craft Plugin
+Because Composer doesn't let you install to a folder of your choice, at the current time we are hijacking the [composer/installers](https://github.com/composer/installers) package for 'Craft Plugins'. This means you must add an item to your composer.json to place it in a folder of your choice.
+
+This will only negatively affect users who use Craft CMS. And as this is a package designed for a Twig project or [Timber for Wordpress](https://github.com/jarednova/timber), that shouldn't be a problem... right?
 
 # Requirements
 * [Timber for Wordpress](https://github.com/jarednova/timber) or other Twig project
