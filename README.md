@@ -90,8 +90,8 @@ With the path to the file and the variable you'd like to access it on.
 * Use `b-lazy` as a class on any div or img with a `data-src` to lazyLoad it. Preferably use the macros included in this package to enable the following:
     * Lazy images, with optional support for retina
     * Lazy TimberImages, with optional support for retina
-    * Lazy background (non-retina for this version)
-* All of the included functions include a `<noscript>` version for non-JS users.
+    * Lazy background, with optional support for retina
+* All of the included functions supply a `<noscript>` version for non-JS users.
 
 ### Macros
 #### {{ base_image.lazy(images, alt, classes, width, height) }}
