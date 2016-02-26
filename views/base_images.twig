@@ -107,7 +107,7 @@
 
   {% if timberImage2x and size2x %}
     {% set request = [timberImage1x.src(size1x), timberImage2x.src(size2x)] %}
-  {% else if size2x %}
+  {% elseif size2x %}
     {% set request = [timberImage1x.src(size1x), timberImage1x.src(size2x)] %}
   {% else %}
     {% set request = timberImage1x.src(size1x) %}
@@ -171,7 +171,7 @@
 
   {% if timberImage2x and size2x %}
     {% set request = [timberImage1x.src(size1x), timberImage2x.src(size2x)] %}
-  {% else if size2x %}
+  {% elseif size2x %}
     {% set request = [timberImage1x.src(size1x), timberImage1x.src(size2x)] %}
   {% else %}
     {% set request = timberImage1x.src(size1x) %}
