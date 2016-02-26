@@ -1,4 +1,4 @@
-{% macro img(images, alt, classes, width, height) %}
+{% macro img(images, alt, classes, width, height) -%}
   {% spaceless %}
     {% if images is iterable %}
       {# Images is an array #}
@@ -20,7 +20,7 @@
       class="{{classes|default('')}}"
       alt="{{ alt }}" />
   {% endspaceless %}
-{% endmacro %}
+{%- endmacro %}
 
 /**
  * Lazy Load Image
@@ -38,7 +38,7 @@
  * @param int           height    Int of image 1x height [OPTIONAL]
  * @return              string    returns lazyloaded image and noscript fallback
  */
-{% macro lazy(images, alt, classes, width, height) %}
+{% macro lazy(images, alt, classes, width, height) -%}
   {% spaceless %}
     {% if images is iterable %}
       {# Images is an array #}
@@ -71,7 +71,7 @@
         class="{{classes|default('')}}" />
     </noscript>
   {% endspaceless %}
-{% endmacro %}
+{%- endmacro %}
 
 /**
  * TimberImages
@@ -85,7 +85,7 @@
  * @param int           size      Size of image, defaults to 'full' [OPTIONAL]
  * @return              string    returns lazyloaded image and noscript fallback
  */
-{% macro TimberImages(ids, alt, classes, sizes) %}
+{% macro TimberImages(ids, alt, classes, sizes) -%}
   {% import _self as base_image %}
   {% if ids is iterable %}
     {# ids is an array #}
@@ -102,11 +102,13 @@
     {% set size2x = sizes[1] %}
   {% else %}
     {% set size1x = sizes|default('full') %}
-    {% set size2x = size1x %}
+    {% set size2x = false %}
   {% endif %}
 
-  {% if timberImage2x %}
+  {% if timberImage2x and size2x %}
     {% set request = [timberImage1x.src(size1x), timberImage2x.src(size2x)] %}
+  {% else if size2x %}
+    {% set request = [timberImage1x.src(size1x), timberImage1x.src(size2x)] %}
   {% else %}
     {% set request = timberImage1x.src(size1x) %}
   {% endif %}
@@ -114,7 +116,7 @@
   {% set altText = alt ? alt : timberImage1x.caption %}
 
   {{ base_image.lazy(request, altText, classes, timberImage1x.sizes[size1x].width, timberImage1x.sizes[size1x].height) }}
-{% endmacro %}
+{%- endmacro %}
 
 /**
  * Lazy Background
@@ -127,7 +129,7 @@
  * @param string        classes   String of classes to add to the background [RECOMMENDED]
  * @return              string    returns lazyloaded background and noscript fallback
  */
-{% macro background(images, classes) %}
+{% macro background(images, classes) -%}
   {% spaceless %}
     {% if images is iterable %}
       {# Images is an array #}
@@ -144,4 +146,36 @@
       <div style="background-image:url('{{ url1x }}');" class="bg-full {{classes|default('')}}" ></div>
     </noscript>
   {% endspaceless %}
-{% endmacro %}
+{%- endmacro %}
+
+{% macro TimberBackground(ids, classes, sizes) -%}
+  {% import _self as base_image %}
+
+  {% if ids is iterable %}
+    {# ids is an array #}
+    {% set timberImage1x = TimberImage(ids[0]) %}
+    {% set timberImage2x = TimberImage(ids[1]) %}
+  {% else %}
+    {# ids is an int #}
+    {% set timberImage1x = TimberImage(ids) %}
+    {% set timberImage2x = false %}
+  {% endif %}
+
+  {% if sizes is iterable %}
+    {% set size1x = sizes[0] %}
+    {% set size2x = sizes[1] %}
+  {% else %}
+    {% set size1x = sizes|default('full') %}
+    {% set size2x = false %}
+  {% endif %}
+
+  {% if timberImage2x and size2x %}
+    {% set request = [timberImage1x.src(size1x), timberImage2x.src(size2x)] %}
+  {% else if size2x %}
+    {% set request = [timberImage1x.src(size1x), timberImage1x.src(size2x)] %}
+  {% else %}
+    {% set request = timberImage1x.src(size1x) %}
+  {% endif %}
+
+  {{ base_image.background(request, classes) }}
+{%- endmacro %}
