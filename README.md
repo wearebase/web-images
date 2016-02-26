@@ -1,5 +1,7 @@
-# Important note for Craft CMS users
-Because Composer doesn't let you install to a folder of your choice, at the current time we are hijacking the [composer/installers](https://github.com/composer/installers) package for 'Craft Plugins'. This means you must add an item to your composer.json to place it in a folder of your choice. This will only affect users who use Craft CMS. And as this is a package designed for a Twig project or [Timber for Wordpress](https://github.com/jarednova/timber), that shouldn't be a problem... right?
+# Caveat: This is not a Craft Plugin
+Because Composer doesn't let you install to a folder of your choice, at the current time we are hijacking the [composer/installers](https://github.com/composer/installers) package for 'Craft Plugins'. This means you must add an item to your composer.json to place it in a folder of your choice.
+
+This will only negatively affect users who use Craft CMS. And as this is a package designed for a Twig project or [Timber for Wordpress](https://github.com/jarednova/timber), that shouldn't be a problem... right?
 
 # Requirements
 * [Timber for Wordpress](https://github.com/jarednova/timber) or other Twig project
@@ -22,7 +24,17 @@ In your `composer.json`, add the following:
 
 This plugin identifies itself as a `craft-plugin`. The addition above will send all `craft-plugin` to a directory you specify. I recommend to send it to your Timber theme inside of wp-content, so you can easily access files with Sass, Twig, etc. Then .gitignore that packages folder.
 
-If you do not specify this item in `composer.json` this utility will install to `craft/plugins/{$name}` as that is the default from `composer/installer` package.
+If you want to move *just* this package to a folder of your choice, use this:
+
+```
+"extra": {
+  "installer-paths": {
+    "wp-content/themes/timber/packages/{$name}": ["wearebase/web-images"]
+  }
+}
+```
+
+If you do not specify an installer-path in `composer.json` this utility will install to `craft/plugins/{$name}` as that is the default from `composer/installer` package.
 
 # What's included
 
@@ -78,8 +90,8 @@ With the path to the file and the variable you'd like to access it on.
 * Use `b-lazy` as a class on any div or img with a `data-src` to lazyLoad it. Preferably use the macros included in this package to enable the following:
     * Lazy images, with optional support for retina
     * Lazy TimberImages, with optional support for retina
-    * Lazy background (non-retina for this version)
-* All of the included functions include a `<noscript>` version for non-JS users.
+    * Lazy background, with optional support for retina
+* All of the included functions supply a `<noscript>` version for non-JS users.
 
 ### Macros
 #### {{ base_image.lazy(images, alt, classes, width, height) }}
@@ -105,7 +117,7 @@ Pass this the following vars:
 * Classes: Any additional classes to add to the image as a string. Optional
 * Sizes: string or array of string sizes. If empty, uses 'full'. Optional
 
-### {{ base_image.background(images, classes) }}
+#### {{ base_image.background(images, classes) }}
 * Use the included background macro to easily create a full size lazyloaded background. By default these will fade in, but you can disable that by adding `b-no-fade` class to backgrounds when triggering the macro.
 * A parent of a full size background **must be position:relative**, or use the `bg-parent` class.
 
