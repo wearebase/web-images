@@ -85,7 +85,7 @@ With the path to the file and the variable you'd like to access it on.
 * Move the `background-size.min.htc` file to your webroot. A reference to a htc file *must* be absolute, so it is easiest to drop it in the web root directory.
 
 ## LazyLoading
-* Activate bLazy with `var bLazy = new Blazy();` on your page.
+* Activate bLazy with `var bLazy = new Blazy();` on your page. Trigger it inside `$(window).load()` for the best results.
 * Revalidate bLazy (on a resize, for example) with `bLazy.revalidate();`.
 * Use `b-lazy` as a class on any div or img with a `data-src` to lazyLoad it. Preferably use the macros included in this package to enable the following:
     * Lazy images, with optional support for retina
