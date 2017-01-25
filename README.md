@@ -1,8 +1,3 @@
-# Caveat: This is not a Craft Plugin
-Because Composer doesn't let you install to a folder of your choice, at the current time we are hijacking the [composer/installers](https://github.com/composer/installers) package for 'Craft Plugins'. This means you must add an item to your composer.json to place it in a folder of your choice.
-
-This will only negatively affect users who use Craft CMS. And as this is a package designed for a Twig project or [Timber for Wordpress](https://github.com/jarednova/timber), that shouldn't be a problem... right?
-
 # Requirements
 * [Timber for Wordpress](https://github.com/jarednova/timber) or other Twig project
 * Sass (SCSS)
@@ -12,19 +7,7 @@ This will only negatively affect users who use Craft CMS. And as this is a packa
 `composer require wearebase/web-images`
 
 # Configure where you want the package to go
-In your `composer.json`, add the following:
-
-```
-"extra": {
-  "installer-paths": {
-    "wp-content/themes/timber/packages/{$name}": ["type:craft-plugin"]
-  }
-}
-```
-
-This plugin identifies itself as a `craft-plugin`. The addition above will send all `craft-plugin` to a directory you specify. I recommend to send it to your Timber theme inside of wp-content, so you can easily access files with Sass, Twig, etc. Then .gitignore that packages folder.
-
-If you want to move *just* this package to a folder of your choice, use this:
+If you want to install somewhere other than `vendor`, in your `composer.json` add the following:
 
 ```
 "extra": {
@@ -33,8 +16,6 @@ If you want to move *just* this package to a folder of your choice, use this:
   }
 }
 ```
-
-If you do not specify an installer-path in `composer.json` this utility will install to `craft/plugins/{$name}` as that is the default from `composer/installer` package.
 
 # What's included
 
