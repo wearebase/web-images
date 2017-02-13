@@ -29,30 +29,29 @@ If you want to install somewhere other than `vendor`, in your `composer.json` ad
 # Usage
 
 ## Enabling Views
-First of all, you must add the views folder to your Twig template load path. You can either specify the views folder within this package or specify your whole third-party directory, which will affect the way you access your views. If you're using multiple Base packages, then the latter may be preferable.
+First of all, you must add the views folder to your Twig template load path.
+
+If you're not using Timber, then simply use `lazyImages.twig` as a universal Twig file.
 
 ### Timber
 [Add the loadpath to your `functions.php`](https://github.com/jarednova/timber/wiki/Configure-template-locations#changing-the-default-folder-for-twig-files). You must re-add the default Theme view folder in here too as it may override the Timber view folder.
 
-```
-Timber::$dirname = array(
-  'views',
-  'packages/web-front-end-images/views'
-);
-```
+If you're using Timber, then use `timberImages.twig`.
 
 ### Enabling Macros
 In your layout file, or in individual macros or components:
 
-`{% import 'macros/base_images.twig' as base_image %}`
+`{% import 'lazyImages.twig' as base_image %}`
 
-With the path to the file and the variable you'd like to access it on.
+or if you're using Timber,
+
+`{% import 'timberImages.twig' as base_image %}`
 
 ## Enabling Sass
 * Add the Sass to your build path. If you're using Compass, add this to your config.rb:
 
 ```
- add_import_path "wp-content/themes/timber/packages"
+ add_import_path "vendor/wearebase/web-images/scss"
 ```
 
 * `@import "autoload"`. to get everything you need.
@@ -63,7 +62,11 @@ With the path to the file and the variable you'd like to access it on.
 * Add the JS file(s) to your page.
 
 ## Enabling background-size.
-* Move the `background-size.min.htc` file to your webroot. A reference to a htc file *must* be absolute, so it is easiest to drop it in the web root directory.
+Background-size is now disabled by default. To use this, drop the `background-size.min.htc` file to your webroot.
+
+You'll also need to add CSS rules to your background images in your own code to use it.
+
+A reference to a htc file *must* be absolute.
 
 ## LazyLoading
 * Activate bLazy with `var bLazy = new Blazy();` on your page. Trigger it inside `$(window).load()` for the best results.

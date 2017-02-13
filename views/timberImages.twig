@@ -1,0 +1,76 @@
+/**
+ * TimberImages
+ *
+ * Provides a simple function to lazyload a TimberImage, with optional retina (2x) TimberImage.
+ * Simply pass this an array or single item of image IDs, and this will convert it to TimberImages.
+ *
+ * @param int/array     images    URL int of attachment ID to lazyload OR array of attachment IDs (1x, 2x) [REQUIRED]
+ * @param string        alt       Alt string of img [RECOMMENDED]
+ * @param string        classes   String of classes to add to the img [RECOMMENDED]
+ * @param int           size      Size of image, defaults to 'full' [OPTIONAL]
+ * @return              string    returns lazyloaded image and noscript fallback
+ */
+{% macro TimberImages(ids, alt, classes, sizes) -%}
+  {% import 'lazyImages.twig' as base_image %}
+  {% if ids is iterable %}
+    {# ids is an array #}
+    {% set timberImage1x = TimberImage(ids[0]) %}
+    {% set timberImage2x = TimberImage(ids[1]) %}
+  {% else %}
+    {# ids is an int #}
+    {% set timberImage1x = TimberImage(ids) %}
+    {% set timberImage2x = false %}
+  {% endif %}
+
+  {% if sizes is iterable %}
+    {% set size1x = sizes[0] %}
+    {% set size2x = sizes[1] %}
+  {% else %}
+    {% set size1x = sizes|default('full') %}
+    {% set size2x = false %}
+  {% endif %}
+
+  {% if timberImage2x and size2x %}
+    {% set request = [timberImage1x.src(size1x), timberImage2x.src(size2x)] %}
+  {% elseif size2x %}
+    {% set request = [timberImage1x.src(size1x), timberImage1x.src(size2x)] %}
+  {% else %}
+    {% set request = timberImage1x.src(size1x) %}
+  {% endif %}
+
+  {% set altText = alt ? alt : timberImage1x.caption %}
+
+  {{ base_image.lazy(request, altText, classes, timberImage1x.sizes[size1x].width, timberImage1x.sizes[size1x].height) }}
+{%- endmacro %}
+
+{% macro TimberBackground(ids, classes, sizes) -%}
+  {% import 'lazyImages.twig' as base_image %}
+
+  {% if ids is iterable %}
+    {# ids is an array #}
+    {% set timberImage1x = TimberImage(ids[0]) %}
+    {% set timberImage2x = TimberImage(ids[1]) %}
+  {% else %}
+    {# ids is an int #}
+    {% set timberImage1x = TimberImage(ids) %}
+    {% set timberImage2x = false %}
+  {% endif %}
+
+  {% if sizes is iterable %}
+    {% set size1x = sizes[0] %}
+    {% set size2x = sizes[1] %}
+  {% else %}
+    {% set size1x = sizes|default('full') %}
+    {% set size2x = false %}
+  {% endif %}
+
+  {% if timberImage2x and size2x %}
+    {% set request = [timberImage1x.src(size1x), timberImage2x.src(size2x)] %}
+  {% elseif size2x %}
+    {% set request = [timberImage1x.src(size1x), timberImage1x.src(size2x)] %}
+  {% else %}
+    {% set request = timberImage1x.src(size1x) %}
+  {% endif %}
+
+  {{ base_image.background(request, classes) }}
+{%- endmacro %}
